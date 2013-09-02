@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "vector4f.h"
 #include "matrix4f.h"
+#include "matrix4f_stack.h"
 
 int main(int argc, char **argv){
 	matrix4f_t mA = matrix4f_identity();
@@ -14,16 +14,33 @@ int main(int argc, char **argv){
 
 	matrix4f_t mC = matrix4f_new();
 	matrix4f_mult(&mA, &mB, &mC);
-	printf("Matrix C = A * B\n");
+	printf("Matrix C\n");
+	mC.columns[3].y = -5;
 	matrix4f_print(&mC);
 
-	vector4f_t vA = matrix4f_mult_vec(&mC, vector4f_new(1, 2, 3, 1));
-	printf("Vector A = Matrix C * (1, 2, 3, 1)\n");
-	vector4f_print(vA);
+	matrix4f_stack_t *stack = matrix4f_stack_new();
 
-	vector4f_t vB = matrix4f_mult_vec(&mC, vector4f_new(1, 2, 3, 0));
-	printf("Vector A = Matrix C * (1, 2, 3, 0)\n");
-	vector4f_print(vB);
+	printf("Stack empty? %d\n", matrix4f_stack_empty(stack));
+
+	matrix4f_stack_push(stack, mA);
+	matrix4f_stack_push(stack, mB);
+	matrix4f_stack_push(stack, mC);
+
+	matrix4f_t top = matrix4f_stack_pop(stack);
+	printf("1st pop expecting matrix C, matrix is:\n");
+	matrix4f_print(&top);
+
+	top = matrix4f_stack_pop(stack);
+	printf("2nd pop expecting matrix B, matrix is:\n");
+	matrix4f_print(&top);
+
+	printf("Stack empty? %d\n", matrix4f_stack_empty(stack));
+
+	top = matrix4f_stack_pop(stack);
+	printf("final pop expecting matrix A, matrix is:\n");
+	matrix4f_print(&top);	
+
+	matrix4f_stack_destroy(stack);
 
 	return 0;
 }
