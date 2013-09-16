@@ -1,5 +1,5 @@
-#ifndef MINIGL_H
-#define MINIGL_H
+#ifndef MICROGL_H
+#define MICROGL_H
 
 #include "matrix4f.h"
 
