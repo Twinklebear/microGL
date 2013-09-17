@@ -1,6 +1,7 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
+#include <stdint.h>
 #include "vector4f.h"
 
 //Color masks for working with vertex colors
