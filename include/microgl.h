@@ -41,7 +41,7 @@ void mgl_vertex3(float x, float y, float z);
 /*
 * Set the current color for vertices
 */
-void mgl_color(uint8_t r, uint8_t g, uint8_t b);
+void mgl_color(float r, float g, float b);
 /*
 * Set the current matrix mode
 */
@@ -94,3 +94,4 @@ void mgl_ortho(float left, float right, float bottom, float top,
 	float near, float far);
 
 #endif
+
