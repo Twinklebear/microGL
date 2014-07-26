@@ -25,6 +25,10 @@ vertex_list_t* vertex_list_new();
  */
 void vertex_list_destroy(vertex_list_t *list);
 /*
+ * Destroy all nodes in the list
+ */
+void vertex_list_clear(vertex_list_t *list);
+/*
  * Destroy a list node
  */
 void vertex_node_destroy(vertex_node_t *node);

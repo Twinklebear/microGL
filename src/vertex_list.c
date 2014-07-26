@@ -13,13 +13,19 @@ void vertex_list_destroy(vertex_list_t *list){
 	if (!list){
 		return;
 	}
+	vertex_list_clear(list);
+	free(list);
+}
+void vertex_list_clear(vertex_list_t *list){
+	if (!list){
+		return;
+	}
 	vertex_node_t *cur = list->head;
 	while (cur != NULL){
 		vertex_node_t *next = cur->next;
 		vertex_node_destroy(cur);
 		cur = next;
 	}
-	free(list);
 }
 void vertex_node_destroy(vertex_node_t *node){
 	if (node){

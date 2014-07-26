@@ -15,6 +15,10 @@ matrix4f_stack_t* matrix4f_stack_new(){
 	return stack;
 }
 void matrix4f_stack_destroy(matrix4f_stack_t *stack){
+	matrix4f_stack_clear(stack);
+	free(stack);
+}
+void matrix4f_stack_clear(matrix4f_stack_t *stack){
 	if (stack->top != NULL){
 		matrix4f_node_t *cur, *next;
 		for (cur = stack->top; cur != NULL; cur = next){
@@ -22,7 +26,6 @@ void matrix4f_stack_destroy(matrix4f_stack_t *stack){
 			free(cur);
 		}
 	}
-	free(stack);
 }
 void matrix4f_stack_push(matrix4f_stack_t *stack, matrix4f_t mat){
 	matrix4f_node_t *node = matrix4f_node_new(mat);
