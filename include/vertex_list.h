@@ -36,6 +36,10 @@ void vertex_node_destroy(vertex_node_t *node);
  * Push a copy of the vertex onto the front of the list
  */
 void vertex_list_push(vertex_list_t *list, vertex_t vertex);
+/*
+ * Get the element at some index in the list of vertices
+ */
+vertex_t* vertex_list_at(vertex_list_t *list, int i);
 
 #endif
 

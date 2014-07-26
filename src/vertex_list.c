@@ -44,4 +44,11 @@ void vertex_list_push(vertex_list_t *list, vertex_t vertex){
 	node->vertex->color = vertex.color;
 	list->head = node;
 }
+vertex_t* vertex_list_at(vertex_list_t *list, int i){
+	vertex_node_t *node = list->head;
+	for (int j = 0; j < i && node != NULL; ++j){
+		node = node->next;
+	}
+	return node->vertex;
+}
 
