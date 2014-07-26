@@ -10,7 +10,7 @@ microgl_driver_t* microgl_driver_new(uint32_t width, uint32_t height){
 	driver->model_view.top = NULL;
 	driver->projection.top = NULL;
 	driver->stack_ptr = &driver->model_view;
-	driver->vertex_list.head = NULL;
+	driver->vertex_list = vertex_list_new(128);
 	driver->mode = TRIANGLES;
 	driver->active_color = vector4f_new(0, 0, 0, 0);
 	driver->width = width;
@@ -25,7 +25,7 @@ void microgl_driver_destroy(microgl_driver_t *driver){
 	}
 	matrix4f_stack_clear(&driver->model_view);
 	matrix4f_stack_clear(&driver->projection);
-	vertex_list_clear(&driver->vertex_list);
+	vertex_list_destroy(&driver->vertex_list);
 	free(driver->color_buffer);
 	free(driver->depth_buffer);
 	free(driver);

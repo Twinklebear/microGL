@@ -1,45 +1,28 @@
 #ifndef VERTEX_LIST_H
 #define VERTEX_LIST_H
 
+#include <stdlib.h>
 #include "vertex.h"
 
 /*
- * A simple single-linked list of vertices. I suppose I could
- * do things more generically with void*'s and such but for such
- * simple applications, meh.
+ * An expandable array of vertices, behaves like a C++ std::vector
  */
-typedef struct vertex_node_t {
-	vertex_t *vertex;
-	struct vertex_node_t *next;
-} vertex_node_t;
-
 typedef struct vertex_list_t {
-	vertex_node_t *head;
+	size_t size, capacity;
+	vertex_t *vertices;
 } vertex_list_t;
 /*
- * Create the vertex list
+ * Create the vertex list with some initial capacity
  */
-vertex_list_t* vertex_list_new();
+vertex_list_t vertex_list_new(size_t capacity);
 /*
  * Destroy the list
  */
 void vertex_list_destroy(vertex_list_t *list);
 /*
- * Destroy all nodes in the list
+ * Push a copy of the vertex onto the end of the list
  */
-void vertex_list_clear(vertex_list_t *list);
-/*
- * Destroy a list node
- */
-void vertex_node_destroy(vertex_node_t *node);
-/*
- * Push a copy of the vertex onto the front of the list
- */
-void vertex_list_push(vertex_list_t *list, vertex_t vertex);
-/*
- * Get the element at some index in the list of vertices
- */
-vertex_t* vertex_list_at(vertex_list_t *list, int i);
+void vertex_list_push_back(vertex_list_t *list, vertex_t vertex);
 
 #endif
 

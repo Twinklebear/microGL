@@ -1,54 +1,32 @@
 #include <stdlib.h>
+#include <string.h>
 #include "vertex.h"
 #include "vertex_list.h"
 
-vertex_list_t* vertex_list_new(){
-	vertex_list_t *list = malloc(sizeof(vertex_list_t));
-	if (list){
-		list->head = NULL;
-	}
+vertex_list_t vertex_list_new(size_t capacity){
+	vertex_list_t list;
+	list.size = 0;
+	list.capacity = capacity;
+	list.vertices = (vertex_t*)malloc(sizeof(vertex_t) * capacity);
 	return list;
 }
 void vertex_list_destroy(vertex_list_t *list){
-	if (!list){
-		return;
-	}
-	vertex_list_clear(list);
-	free(list);
+	free(list->vertices);
+	list->size = 0;
+	list->capacity = 0;
 }
-void vertex_list_clear(vertex_list_t *list){
-	if (!list){
-		return;
+void vertex_list_push_back(vertex_list_t *list, vertex_t vertex){
+	if (list->size + 1 == list->capacity){
+		vertex_list_expand(list, 2 * list->capacity);
 	}
-	vertex_node_t *cur = list->head;
-	while (cur != NULL){
-		vertex_node_t *next = cur->next;
-		vertex_node_destroy(cur);
-		cur = next;
-	}
+	list->vertices[list->size] = vertex;
+	list->size++;
 }
-void vertex_node_destroy(vertex_node_t *node){
-	if (node){
-		free(node->vertex);
-		free(node);
-	}
-}
-void vertex_list_push(vertex_list_t *list, vertex_t vertex){
-	vertex_node_t *node = malloc(sizeof(vertex_node_t));
-	if (!node){
-		return;
-	}
-	node->next = list->head;
-	node->vertex = malloc(sizeof(vertex_t));
-	node->vertex->pos = vertex.pos;
-	node->vertex->color = vertex.color;
-	list->head = node;
-}
-vertex_t* vertex_list_at(vertex_list_t *list, int i){
-	vertex_node_t *node = list->head;
-	for (int j = 0; j < i && node != NULL; ++j){
-		node = node->next;
-	}
-	return node->vertex;
+void vertex_list_expand(vertex_list_t *list, size_t capacity){
+	vertex_t *vertices = list->vertices;
+	list->vertices = (vertex_t*)malloc(sizeof(vertex_t) * capacity);
+	memcpy(list->vertices, vertices, sizeof(vertex_t) * list->size);
+	list->capacity = capacity;
+	free(vertices);
 }
 
