@@ -110,13 +110,17 @@ void mgl_end(){
 }
 void mgl_vertex2(float x, float y){
 	assert(mgl_active_driver != NULL && mgl_active_driver->mode != NONE);
+	vector4f_t p = matrix4f_mult_vec(&mgl_active_driver->model_view.top->matrix,
+		vector4f_new(x, y, 0, 1));
 	vertex_list_push_back(&mgl_active_driver->vertex_list,
-		vertex_new(vector4f_new(x, y, 0, 1), mgl_active_driver->active_color));
+		vertex_new(p, mgl_active_driver->active_color));
 }
 void mgl_vertex3(float x, float y, float z){
 	assert(mgl_active_driver != NULL && mgl_active_driver->mode != NONE);
+	vector4f_t p = matrix4f_mult_vec(&mgl_active_driver->model_view.top->matrix,
+		vector4f_new(x, y, z, 1));
 	vertex_list_push_back(&mgl_active_driver->vertex_list,
-		vertex_new(vector4f_new(x, y, z, 1), mgl_active_driver->active_color));
+		vertex_new(p, mgl_active_driver->active_color));
 }
 void mgl_color(float r, float g, float b){
 	assert(mgl_active_driver != NULL);

@@ -8,6 +8,11 @@ int main(int argc, char **argv){
 	microgl_driver_t *driver = microgl_driver_new(128, 128);
 	microgl_driver_use(driver);
 
+	mgl_matrix_mode(MODELVIEW);
+	mgl_scale(0.5, 1, 1);
+	mgl_rotate(45, 0, 1, 1);
+	mgl_translate(0, -1, 0);
+
 	mgl_begin(TRIANGLES);
 	mgl_color(1, 0, 0);
 	mgl_vertex3(0, 0, 0);
