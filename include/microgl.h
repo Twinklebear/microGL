@@ -13,14 +13,9 @@ typedef enum matrix_mode {
  * Supported primitives
  */
 typedef enum poly_mode {
-	TRIANGLES, QUADS
+	TRIANGLES, QUADS, NONE
 } poly_mode;
 
-/*
- * Initialize minigl and specify the width and height
- * of the surface to render too
- */
-void mgl_init(int w, int h);
 /*
  * Start specifying the vertices for a group of primitives
  * of type mode
@@ -85,13 +80,13 @@ void mgl_scale(float x, float y, float z);
  * matrix with the given clipping planes
  */
 void mgl_frustum(float left, float right, float bottom, float top,
-		float near, float far);
+	float near, float far);
 /*
  * Multiply the current matrix by the orthographic projection
  * matrix with the given clipping planes
  */
 void mgl_ortho(float left, float right, float bottom, float top,
-		float near, float far);
+	float near, float far);
 
 #endif
 

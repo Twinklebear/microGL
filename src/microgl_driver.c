@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include "microgl.h"
 #include "microgl_driver.h"
 
@@ -33,6 +34,14 @@ void microgl_driver_destroy(microgl_driver_t *driver){
 void microgl_driver_use(microgl_driver_t *driver){
 	extern microgl_driver_t *mgl_active_driver;
 	mgl_active_driver = driver;
+	//Clear color and depth buffers
+	for (size_t i = 0; i < driver->width * driver->height; ++i){
+		driver->color_buffer[i] = 0;
+		driver->depth_buffer[i] = 1.f;
+	}
+	matrix4f_stack_push(&driver->model_view, matrix4f_identity());
+	matrix4f_stack_push(&driver->projection, matrix4f_identity());
+	driver->active_color = vector4f_new(1, 1, 1, 1);
 }
 
 
