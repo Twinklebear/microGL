@@ -24,7 +24,7 @@ matrix4f_t matrix4f_identity(){
 			}
 		}
 	}
-	return m;	
+	return m;
 }
 void matrix4f_set_col(matrix4f_t *m, int c, float x, float y, float z, float w){
 	m->columns[c].x = x;
@@ -49,7 +49,7 @@ vector4f_t matrix4f_mult_vec(const matrix4f_t *m, vector4f_t v){
 void matrix4f_mult(const matrix4f_t *a, const matrix4f_t *b, matrix4f_t *c){
 	for (int i = 0; i < 4; ++i){
 		for (int j = 0; j < 4; ++j){
-			vector4f_set_idx(&c->columns[j], i, 
+			vector4f_set_idx(&c->columns[j], i,
 				vector4f_dot(matrix4f_get_row(a, i), b->columns[j]));
 		}
 	}
